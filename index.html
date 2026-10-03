@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gamepad Action Mapper</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <h1>游戏手柄逻辑动作映射</h1>
+        <p>最多映射 4 个浏览器手柄。失焦、断开和同索引换设备时，逻辑按下状态会安全关闭。</p>
+      </header>
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>设备 / 校准</h2>
+          <span id="focusState" class="badge">页面已聚焦</span>
+        </div>
+        <div id="devices" class="device-grid"></div>
+        <div class="calibration-row">
+          <select id="calibrationAxis"></select>
+          <button id="startCalibration">开始中心校准</button>
+          <button id="finishCalibration">完成校准</button>
+          <button id="cancelCalibration">取消</button>
+        </div>
+        <pre id="calibrationState" class="muted"></pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-title">
+          <h2>配置</h2>
+          <div class="actions">
+            <button id="formatConfig">格式化</button>
+            <button id="applyConfig" class="primary">应用并开启新日志代次</button>
+          </div>
+        </div>
+        <textarea id="configInput" spellcheck="false"></textarea>
+        <p id="configError" class="error"></p>
+      </section>
+
+      <section class="panel split">
+        <div>
+          <h2>实时状态</h2>
+          <h3>活动动作</h3>
+          <ul id="activeActions"></ul>
+          <h3>录制事件</h3>
+          <div class="actions">
+            <button id="recordButton">开始录制</button>
+            <button id="stopButton" disabled>停止</button>
+            <button id="exportButton" disabled>导出规范化 JSON</button>
+          </div>
+          <ol id="liveLog" class="event-list"></ol>
+        </div>
+        <div>
+          <h2>单步回放</h2>
+          <p class="muted">回放只读取规范化日志，不需要真实手柄仍连接。</p>
+          <input id="replayFile" type="file" accept="application/json,.json" />
+          <div class="actions">
+            <button id="replayStep" disabled>下一事件</button>
+            <button id="replayAction" disabled>下一动作</button>
+            <button id="replayRestart" disabled>重新开始</button>
+          </div>
+          <p id="replayInfo" class="muted">尚未加载日志。</p>
+          <ul id="replayActive"></ul>
+          <ol id="replayLog" class="event-list"></ol>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
